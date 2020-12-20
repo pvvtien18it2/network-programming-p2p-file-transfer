@@ -138,7 +138,7 @@ class Receive(Thread):
                 elif check == 'file_jpg':
                     self.save_file('.jpg', data)
                 elif data[22:25] == 'mgs':
-                    new_mgs = data[:21] + data[25:]
+                    new_mgs = data[:21] + " " + data[25:]
                     self.ui.txt_chat.append(new_mgs)
             except Exception as e:
                 self.socket.close()
@@ -208,7 +208,6 @@ class ServerResponse(Thread):
             try:
                 data = self.conn.recv(self.buffer_size)
                 data = data.decode('utf_8')
-                print(data)
                 check = data[:8]
                 if check == 'file_txt':
                     self.save_file('.txt', data)
@@ -217,8 +216,7 @@ class ServerResponse(Thread):
                 elif check == 'file_jpg':
                     self.save_file('.jpg', data)
                 elif data[22:25] == 'mgs':
-                    new_mgs = data[:21] + data[25:]
-                    print(new_mgs)
+                    new_mgs = data[:21] + " " + data[25:]
                     self.ui.txt_chat.append(new_mgs)
                 if self.ui.txt_msg.text():
                     message = self.ui.txt_msg.text()
